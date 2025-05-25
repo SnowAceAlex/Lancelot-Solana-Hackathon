@@ -24,7 +24,7 @@ exports.getAllJobs = async (req, res) => {
 
 exports.getJobById = async (req, res) => {
   try {
-    const job = await JobModel.findById(req.params.id);
+    const job = await JobModel.findOne({ job_id: req.params.id });
     if (!job) {
       return res.status(404).json({ message: 'Job not found' });
     }
@@ -47,7 +47,7 @@ exports.getJobsByClient = async (req, res) => {
 
 exports.updateJob = async (req, res) => {
   try{
-    const job = await JobModel.findById(req.params.id)
+    const job = await JobModel.findOne(req.params.id)
     if(!job){
       return res.status(404).json({message: 'Job not found'})
     }
@@ -83,7 +83,7 @@ exports.deleteAllData = async (req, res) => {
 
 exports.deleteJob = async (req, res) => {
   try {
-    const job = await JobModel.findByIdAndDelete(req.params.id);
+    const job = await JobModel.findOneAndDelete({ job_id: req.params.id });
     if (!job) {
       return res.status(404).json({ message: 'Job not found' });
     }
